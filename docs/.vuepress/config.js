@@ -64,8 +64,8 @@ module.exports = {
       '/log4js/': [{
         title: "Log4js中文文档",
         children: [
-          "/log4js/1.",
-          "/log4js/2.",
+          "/log4js/1",
+          "/log4js/2",
         ],
       },],
 
