@@ -1,0 +1,24 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "整理的一些常用工具的中文文档，包括pm2，log4js，sequelize，mongoose",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hsyq/docs.git"
+  },
+  "author": "hsyq",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hsyq/docs/issues"
+  },
+  "homepage": "https://github.com/hsyq/docs#readme",
+  "dependencies": {
+    "vuepress": "^1.9.7"
+  }
+}
