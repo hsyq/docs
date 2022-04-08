@@ -12,11 +12,10 @@ module.exports = {
     repo: 'hsyq/docs',
     nav: [
       { text: '主页', link: '/' },
-      // { text: '周刊', link: '/weekly/' },
+
       { text: 'PM2', link: '/pm2/' },
       { text: 'Log4js', link: '/log4js/' },
-      // { text: 'Mongoose', link: '/mongoose/' },
-      // { text: 'Sequelize', link: '/sequelize/' },
+
       {
         text: '博客',
         items: [
@@ -41,7 +40,7 @@ module.exports = {
       //   ]
       // },
 
-      // 设置 engineering的侧边栏
+
       '/pm2/': [
         {
           title: "PM2中文文档",
@@ -60,7 +59,7 @@ module.exports = {
           ],
         },
       ],
-      // 设置vue3的侧边栏
+
       '/log4js/': [{
         title: "Log4js中文文档",
         children: [
@@ -69,14 +68,13 @@ module.exports = {
         ],
       },],
 
-      // 设置node的侧边栏
-      // '/mongoose/': [{
-      //   title: "Mongoose中文文档",
-      //   children: [
-      //     "/mongoose/1.",
-      //     "/mongoose/2.",
-      //   ],
-      // },],
+      '/mongoose/': [{
+        title: "Mongoose中文文档",
+        children: [
+          "/mongoose/1",
+          "/mongoose/2",
+        ],
+      },],
     },
 
     lastUpdated: '上次更新',
