@@ -68,6 +68,14 @@ module.exports = {
         ],
       },],
 
+      '/sequelize/': [{
+        title: "Sequelize中文文档",
+        children: [
+          "/sequelize/1",
+          "/sequelize/2",
+        ],
+      },],
+
       '/mongoose/': [{
         title: "Mongoose中文文档",
         children: [
