@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>PM2 进程管理快速入门 | 昆吾</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="整理的一些常用工具的中文文档，包括pm2，log4js，sequelize，mongoose">
+    <meta name="keywords" content="PM2中文文档，log4js中文文档，mongoose中文文档，sequelize中文文档">
+    
+    <link rel="preload" href="/assets/css/0.styles.e4d8b86b.css" as="style"><link rel="preload" href="/assets/js/app.b2070ef8.js" as="script"><link rel="preload" href="/assets/js/2.b49b8210.js" as="script"><link rel="preload" href="/assets/js/14.40048ed4.js" as="script"><link rel="prefetch" href="/assets/js/10.4025f27b.js"><link rel="prefetch" href="/assets/js/11.32186530.js"><link rel="prefetch" href="/assets/js/12.0ef2396c.js"><link rel="prefetch" href="/assets/js/13.bf814053.js"><link rel="prefetch" href="/assets/js/15.a5f6fa59.js"><link rel="prefetch" href="/assets/js/16.aee196c7.js"><link rel="prefetch" href="/assets/js/17.2e5fcffb.js"><link rel="prefetch" href="/assets/js/18.100d7b3a.js"><link rel="prefetch" href="/assets/js/19.51d2618a.js"><link rel="prefetch" href="/assets/js/20.59e2f2f0.js"><link rel="prefetch" href="/assets/js/21.f3b62703.js"><link rel="prefetch" href="/assets/js/22.8c9a60fa.js"><link rel="prefetch" href="/assets/js/23.fdc748e3.js"><link rel="prefetch" href="/assets/js/24.a528f319.js"><link rel="prefetch" href="/assets/js/25.b77dbf2b.js"><link rel="prefetch" href="/assets/js/26.9c14a93d.js"><link rel="prefetch" href="/assets/js/27.a65fc585.js"><link rel="prefetch" href="/assets/js/28.220e22a9.js"><link rel="prefetch" href="/assets/js/29.7822dc7f.js"><link rel="prefetch" href="/assets/js/3.c9530dd1.js"><link rel="prefetch" href="/assets/js/30.5f92fe97.js"><link rel="prefetch" href="/assets/js/31.c5c440b6.js"><link rel="prefetch" href="/assets/js/32.d08eb648.js"><link rel="prefetch" href="/assets/js/33.48892016.js"><link rel="prefetch" href="/assets/js/34.b7aa7a66.js"><link rel="prefetch" href="/assets/js/35.6e74a8b1.js"><link rel="prefetch" href="/assets/js/36.981d68cb.js"><link rel="prefetch" href="/assets/js/4.b7d0708f.js"><link rel="prefetch" href="/assets/js/5.9e2f4ca7.js"><link rel="prefetch" href="/assets/js/6.c7b54f12.js"><link rel="prefetch" href="/assets/js/7.5ba8cdaa.js"><link rel="prefetch" href="/assets/js/8.bbaaa56f.js"><link rel="prefetch" href="/assets/js/9.f62ee2e9.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4d8b86b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">昆吾</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/pm2/" class="nav-link router-link-active">
+  PM2
+</a></div><div class="nav-item"><a href="/log4js/" class="nav-link">
+  Log4js
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/hsyq" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://www.yuque.com/kunwu-mi1a0" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  语雀
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/3878732751440253/posts" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/hsyq/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/pm2/" class="nav-link router-link-active">
+  PM2
+</a></div><div class="nav-item"><a href="/log4js/" class="nav-link">
+  Log4js
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/hsyq" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://www.yuque.com/kunwu-mi1a0" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  语雀
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://juejin.cn/user/3878732751440253/posts" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/hsyq/docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>PM2中文文档</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/pm2/1.quickstart/1.快速开始.html" class="active sidebar-link">PM2 进程管理快速入门</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#pm2-进程管理快速入门" class="sidebar-link">PM2 进程管理快速入门</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#管理进程" class="sidebar-link">管理进程</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#检查状态、日志、指标" class="sidebar-link">检查状态、日志、指标</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#集群模式" class="sidebar-link">集群模式</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#生态系统文件" class="sidebar-link">生态系统文件</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#设置启动脚本" class="sidebar-link">设置启动脚本</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#在更改时重新启动应用程序" class="sidebar-link">在更改时重新启动应用程序</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#更新-pm2" class="sidebar-link">更新 PM2</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#备忘录" class="sidebar-link">备忘录</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#下一步是什么" class="sidebar-link">下一步是什么？</a></li><li class="sidebar-sub-header"><a href="/pm2/1.quickstart/1.快速开始.html#如何更新-pm2" class="sidebar-link">如何更新 PM2</a></li></ul></li><li><a href="/pm2/2.general/1.进程管理.html" class="sidebar-link">管理应用程序状态</a></li><li><a href="/pm2/2.general/2.重启策略.html" class="sidebar-link">重启策略</a></li><li><a href="/pm2/2.general/3.日志.html" class="sidebar-link">应用程序日志</a></li><li><a href="/pm2/2.general/4.持久化应用.html" class="sidebar-link">持久应用：启动脚本生成器</a></li><li><a href="/pm2/2.general/5.配置文件.html" class="sidebar-link">配置文件</a></li><li><a href="/pm2/2.general/6.集群模式.html" class="sidebar-link">Cluster模式</a></li><li><a href="/pm2/2.general/7.PM2作为静态服务器.html" class="sidebar-link">/pm2/2.general/7.PM2作为静态服务器.html</a></li><li><a href="/pm2/2.general/8.部署系统.html" class="sidebar-link">/pm2/2.general/8.部署系统.html</a></li><li><a href="/pm2/2.general/9.环境变量.html" class="sidebar-link">/pm2/2.general/9.环境变量.html</a></li><li><a href="/pm2/2.general/10.升级PM2.html" class="sidebar-link">/pm2/2.general/10.升级PM2.html</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="pm2-进程管理快速入门"><a href="#pm2-进程管理快速入门" class="header-anchor">#</a> PM2 进程管理快速入门</h2> <p>PM2 是一个守护进程管理器，它将帮助您管理和保持您的应用程序在线。PM2 入门很简单，它以简单直观的 CLI 形式供你使用，可通过 NPM 安装。</p> <h3 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h3> <p>最新的 PM2 版本可通过 NPM 或 Yarn 安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token function">npm</span> <span class="token function">install</span> pm2@latest -g
+<span class="token comment"># or</span>
+$ <span class="token function">yarn</span> global <span class="token function">add</span> pm2
+</code></pre></div><p>要安装 Node.js 和 NPM，您可以使用<a href="https://yoember.com/nodejs/the-best-way-to-install-node-js/" target="_blank" rel="noopener noreferrer">NVM<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。</p> <h3 id="启动应用程序"><a href="#启动应用程序" class="header-anchor">#</a> 启动应用程序</h3> <p>启动、守护和监控应用程序的最简单方法就是使用以下命令行：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 start app.js
+</code></pre></div><p>也可以轻松地启动任何其他类型的应用程序：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 start bashscript.sh
+$ pm2 start python-app.py --watch
+$ pm2 start binary-file -- --port <span class="token number">1520</span>
+</code></pre></div><p>您可以传递给 CLI的 一些选项：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 指定app的名字</span>
+--name <span class="token operator">&lt;</span>app_name<span class="token operator">&gt;</span>
+
+<span class="token comment"># 监测文件变化，重新启动应用程序</span>
+--watch
+
+<span class="token comment"># 设置应用程序重新加载的内存阈值</span>
+--max-memory-restart <span class="token operator">&lt;</span>200MB<span class="token operator">&gt;</span>
+
+<span class="token comment"># 指定日志文件的输出路径</span>
+--log <span class="token operator">&lt;</span>log_path<span class="token operator">&gt;</span>
+
+<span class="token comment"># 给启动脚本传递额外的参数</span>
+-- arg1 arg2 arg3
+
+<span class="token comment"># 设置自动重启的延迟时间</span>
+--restart-delay <span class="token operator">&lt;</span>delay <span class="token keyword">in</span> ms<span class="token operator">&gt;</span>
+
+<span class="token comment"># 给日志加上时间前缀</span>
+--time
+
+<span class="token comment"># 不自动重启应用</span>
+--no-autorestart
+
+<span class="token comment"># 通过cron指定强制重启的时间</span>
+--cron <span class="token operator">&lt;</span>cron_pattern<span class="token operator">&gt;</span>
+
+<span class="token comment"># 字母意思是不以守护进程的形式运行，表现为启动应用后会在前台打印日志信息</span>
+--no-daemon
+</code></pre></div><p>如您所见，当使用 PM2 管理您的应用程序时有许多可用的选项。您将通过您的用例了解它们。</p> <h2 id="管理进程"><a href="#管理进程" class="header-anchor">#</a> 管理进程</h2> <p>管理应用程序状态很简单，命令如下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 restart app_name
+$ pm2 reload app_name
+$ pm2 stop app_name
+$ pm2 delete app_name
+</code></pre></div><p>你可以通过下面这些参数代替传递<code>app_name</code>：</p> <ul><li><code>all</code>对所有进程起作用</li> <li><code>id</code>作用于特定的进程 ID</li></ul> <h2 id="检查状态、日志、指标"><a href="#检查状态、日志、指标" class="header-anchor">#</a> 检查状态、日志、指标</h2> <p>现在您已经启动了一个应用程序，您可以检查它的状态、日志、指标，甚至可以使用<a href="https://pm2.io/" target="_blank" rel="noopener noreferrer">pm2.io<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>获取在线仪表板。</p> <h3 id="列出托管的应用程序"><a href="#列出托管的应用程序" class="header-anchor">#</a> 列出托管的应用程序</h3> <p>列出 PM2 管理的所有应用程序的状态：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 <span class="token punctuation">[</span>list<span class="token operator">|</span><span class="token function">ls</span><span class="token operator">|</span>status<span class="token punctuation">]</span>
+</code></pre></div><p><img src="https://i.imgur.com/LmRD3FN.png" alt="https://i.imgur.com/LmRD3FN.png"></p> <h3 id="查看日志"><a href="#查看日志" class="header-anchor">#</a> 查看日志</h3> <p>查看实时日志：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 logs
+</code></pre></div><p>查看旧日志：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 显示最近两百行日志</span>
+$ pm2 logs --lines <span class="token number">200</span>
+</code></pre></div><h3 id="基于终端的仪表板"><a href="#基于终端的仪表板" class="header-anchor">#</a> 基于终端的仪表板</h3> <p>这是一个直接融入您的终端的实时仪表板：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 monit
+</code></pre></div><p><img src="https://i.imgur.com/xo0LDb7.png" alt="https://i.imgur.com/xo0LDb7.png"></p> <h3 id="pm2-io-监控和诊断应用的-web-界面"><a href="#pm2-io-监控和诊断应用的-web-界面" class="header-anchor">#</a> pm2.io：监控和诊断应用的 Web 界面</h3> <p>它是一个基于Web的仪表板 ，带有诊断系统，用来实时监测Nodejs应用和服务器的运行情况。</p> <p>运行该命令，会唤起 <a href="https://app.pm2.io" target="_blank" rel="noopener noreferrer">pm2.io<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>进行登录，之后就能在线使用这个工具了：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 plus
+</code></pre></div><p><img src="https://i.imgur.com/sigMHli.png" alt="https://i.imgur.com/sigMHli.png"></p> <h2 id="集群模式"><a href="#集群模式" class="header-anchor">#</a> 集群模式</h2> <p>对于 Node.js 应用程序，PM2 包含一个自动负载均衡器，它将在每个子进程之间共享所有 HTTP[s]/Websocket/TCP/UDP 连接。</p> <p>以集群模式启动应用程序：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># max表示以系统的最大进程来建立集群</span>
+<span class="token variable">$pm2</span> start app.js -i max
+</code></pre></div><p><a href="https://pm2.keymetrics.io/docs/usage/cluster-mode/" target="_blank" rel="noopener noreferrer">在此处<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>阅读有关集群模式的更多信息。</p> <h2 id="生态系统文件"><a href="#生态系统文件" class="header-anchor">#</a> 生态系统文件</h2> <p>您还可以创建一个配置文件，它叫作<code>Ecosystem File</code>（生态系统文件）， 用来管理多个应用程序。</p> <p>执行这个命令：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 ecosystem
+</code></pre></div><p>它将生成一个<code>ecosystem.config.js</code>文件：</p> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">apps</span> <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">&quot;app&quot;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">script</span><span class="token operator">:</span> <span class="token string">&quot;./app.js&quot;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">env</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token constant">NODE_ENV</span><span class="token operator">:</span> <span class="token string">&quot;development&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">env_production</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token constant">NODE_ENV</span><span class="token operator">:</span> <span class="token string">&quot;production&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+     <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'worker'</span><span class="token punctuation">,</span>
+     <span class="token literal-property property">script</span><span class="token operator">:</span> <span class="token string">'worker.js'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>然后就能轻松地启动它：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>// pm2程序会自动寻找根目录下ecosystem.config.js，然后根据它启动和管理配置的应用
+$ pm2 start
+</code></pre></div><p><a href="https://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank" rel="noopener noreferrer">在此处<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>阅读有关应用程序声明的更多信息。</p> <h2 id="设置启动脚本"><a href="#设置启动脚本" class="header-anchor">#</a> 设置启动脚本</h2> <p>当服务器启动或者重启时，重启PM2程序来管理你的进程，这一点至关重要。</p> <p>要实现这个功能，只需运行此命令来生成活动启动脚本：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 startup
+</code></pre></div><p>然后冻结需要自动重启的进程列表：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 save
+</code></pre></div><p><a href="https://pm2.keymetrics.io/docs/usage/startup/" target="_blank" rel="noopener noreferrer">在此处<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>阅读有关启动脚本生成器的更多信息。</p> <h2 id="在更改时重新启动应用程序"><a href="#在更改时重新启动应用程序" class="header-anchor">#</a> 在更改时重新启动应用程序</h2> <p>使用该<code>--watch</code>选项非常容易：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token builtin class-name">cd</span> /path/to/my/app
+$ pm2 start env.js --watch --ignore-watch<span class="token operator">=</span><span class="token string">&quot;node_modules&quot;</span>
+</code></pre></div><p>这将在当前目录+所有子文件夹中的任何文件更改上监视并重新启动应用程序，它将忽略 node_modules 文件夹中的任何更改<code>--ignore-watch=&quot;node_modules&quot;</code>。</p> <p>然后，您可以使用<code>pm2 logs</code>来检查重新启动的应用程序日志。</p> <h2 id="更新-pm2"><a href="#更新-pm2" class="header-anchor">#</a> 更新 PM2</h2> <p>我们做得很简单，版本之间没有重大变化，过程很简单：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token function">npm</span> <span class="token function">install</span> pm2@latest -g
+</code></pre></div><p>然后更新内存中的 PM2 ：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 update
+</code></pre></div><h2 id="备忘录"><a href="#备忘录" class="header-anchor">#</a> 备忘录</h2> <p>下面是一些值得了解的命令。可以在你的开发机器上通过示例应用或者你自己的web应用，尝试使用它们。</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># Fork模式</span>
+pm2 start app.js --name my-api <span class="token comment"># 设定应用的名字</span>
+
+<span class="token comment"># Cluster模式</span>
+pm2 start app.js -i <span class="token number">0</span>        <span class="token comment"># 将使用LB启动最大进程，具体取决于可用的CPU</span>
+pm2 start app.js -i max      <span class="token comment"># 等同于上一条的作用，但不推荐</span>
+pm2 scale app +3             <span class="token comment"># 给`app`扩展额外的3个进程</span>
+pm2 scale app <span class="token number">2</span>              <span class="token comment"># 将`app`扩展或者收缩到2个进程</span>
+
+<span class="token comment"># Listing</span>
+pm2 list               <span class="token comment"># 展示所有进程的状态</span>
+pm2 jlist              <span class="token comment"># 用原始JSON格式打印所有进程列表</span>
+pm2 prettylist         <span class="token comment"># 用美化的JSON打印所有进程列表</span>
+
+pm2 describe <span class="token number">0</span>         <span class="token comment"># 展示特定进程的所有信息</span>
+
+pm2 monit              <span class="token comment"># 使用仪表盘监控所有进程</span>
+
+<span class="token comment"># Logs</span>
+
+pm2 logs <span class="token punctuation">[</span>--raw<span class="token punctuation">]</span>       <span class="token comment"># 以流的形式显示所有进程日志</span>
+pm2 flush              <span class="token comment"># 清空所有日志文件</span>
+pm2 reloadLogs         <span class="token comment"># 重新加载所有日志</span>
+
+<span class="token comment"># Actions</span>
+
+pm2 stop all           <span class="token comment"># 停止所有进程</span>
+pm2 restart all        <span class="token comment"># 重启所有进程</span>
+
+pm2 reload all         <span class="token comment"># 零延迟重启所有进程 (针对网络应用)</span>
+
+pm2 stop <span class="token number">0</span>             <span class="token comment"># 停止特定id的进程</span>
+pm2 restart <span class="token number">0</span>          <span class="token comment"># 重启特定id的进程</span>
+
+pm2 delete <span class="token number">0</span>           <span class="token comment"># 从pm2列表中删除id为0进程</span>
+pm2 delete all         <span class="token comment"># 从pm2列表中删除所有的进程</span>
+
+<span class="token comment"># Misc</span>
+
+pm2 reset <span class="token operator">&lt;</span>process<span class="token operator">&gt;</span>    <span class="token comment"># 重置元数据（重启时间…）</span>
+pm2 updatePM2          <span class="token comment"># 更新内存中的pm2 </span>
+pm2 <span class="token function">ping</span>               <span class="token comment"># 确保pm2守护进程已启动</span>
+pm2 sendSignal SIGUSR2 my-app <span class="token comment"># 向脚本发送系统信号</span>
+pm2 start app.js --no-daemon
+pm2 start app.js --no-vizion
+pm2 start app.js --no-autorestart
+</code></pre></div><h2 id="下一步是什么"><a href="#下一步是什么" class="header-anchor">#</a> 下一步是什么？</h2> <p>了解如何将应用程序的所有行为选项声明到<a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank" rel="noopener noreferrer">JSON 配置文件<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>中。</p> <p>了解如何进行<a href="http://pm2.keymetrics.io/docs/usage/signals-clean-restart/" target="_blank" rel="noopener noreferrer">干净地停止和重新启动<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>以提高可靠性。</p> <p>了解如何<a href="http://pm2.keymetrics.io/docs/usage/deployment/" target="_blank" rel="noopener noreferrer">轻松部署和更新生产应用程序<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。</p> <p>使用<a href="https://app.pm2.io/" target="_blank" rel="noopener noreferrer">PM2.io<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>监控您的生产应用程序。</p> <h2 id="如何更新-pm2"><a href="#如何更新-pm2" class="header-anchor">#</a> 如何更新 PM2</h2> <p>安装最新的 pm2 版本：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token function">npm</span> <span class="token function">install</span> pm2@latest -g
+</code></pre></div><p>然后更新内存中的 PM2 ：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ pm2 update
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">4/8/2022, 3:25:01 PM</span></div></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/pm2/2.general/1.进程管理.html">
+        管理应用程序状态
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.b2070ef8.js" defer></script><script src="/assets/js/2.b49b8210.js" defer></script><script src="/assets/js/14.40048ed4.js" defer></script>
+  </body>
+</html>
