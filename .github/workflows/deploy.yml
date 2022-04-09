@@ -29,7 +29,7 @@ jobs:
           branch: gh-pages
           folder: docs/.vuepress/dist
 
-      - name: Deploy
+      - name: Deploy Ali
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
