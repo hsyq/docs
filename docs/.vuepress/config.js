@@ -8,6 +8,7 @@ module.exports = {
     // 设置 Google 的 Search Console
     // ['meta', { name: 'google-site-verification', content: '_rNB9Nt0ukzWmMfhXSSxCHUAeeMs24OiuhGm4QjdwXA' }]
   ],
+
   themeConfig: {
     repo: 'hsyq/docs',
     nav: [
@@ -81,6 +82,14 @@ module.exports = {
         children: [
           "/mongoose/1",
           "/mongoose/2",
+        ],
+      },],
+
+      '/常用npm包的文档/': [{
+        title: "常用NPM",
+        children: [
+          "/npm/1",
+          "/npm/2",
         ],
       },],
     },
